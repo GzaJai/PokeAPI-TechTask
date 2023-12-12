@@ -11,3 +11,8 @@ ion-grid {
   ion-title {
     text-align: center;
   }
+
+.final-message{
+    text-align: center;
+    font-size: 2rem;
+}

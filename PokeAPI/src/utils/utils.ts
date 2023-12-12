@@ -1,5 +1,30 @@
-export function nameCapitalize(name: string): string {
-    if (!name) return name;
+export function getApiData(setter) {
+  fetch("https://pokeapi.co/api/v2/pokemon?limit=1292")
+    .then((response) => response.json())
+    .then((data) => setter(data));
+}
 
-    return name.charAt(0).toUpperCase() + name.slice(1);
+export function randomizeArray<T>(array: T[]): T[] {
+  const newArray = [...array];
+
+  for (let i = newArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+
+    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
   }
+
+  return newArray;
+}
+
+export function nameCapitalize(name: string): string {
+  if (!name) return name;
+
+  return name.charAt(0).toUpperCase() + name.slice(1);
+}
+
+export function getPokemonId(url: string) {
+  const slices = url.split("/");
+  const cleanId = slices[slices.length - 2];
+
+  return cleanId;
+}
