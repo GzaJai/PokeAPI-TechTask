@@ -1,17 +1,23 @@
 import React, { useEffect, useState} from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonCol, IonGrid, IonRow, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle } from '@ionic/react';
 import './Tab1.css';
-import { nameCapitalize } from '../utils/utils';
+import { getApiData, randomizeArray, nameCapitalize, getPokemonId } from '../utils/utils';
 
 const Tab1: React.FC = () => {
 
+  const [ApiResponse, setApiResponse] = useState();
   const [pokeData, setPokeData] = useState();
 
   useEffect(() => {
-    fetch('https://pokeapi.co/api/v2/pokemon?limit=1292')
-    .then(response => response.json())
-    .then(data => setPokeData(data));
+    getApiData(setApiResponse);
   }, [])
+
+  useEffect(() => {
+    if (ApiResponse) {
+      const randomizedPokeData = randomizeArray(ApiResponse.results)
+      setPokeData(randomizedPokeData)
+    }
+  }, [ApiResponse])
   
 
   return (
@@ -30,10 +36,10 @@ const Tab1: React.FC = () => {
         <IonGrid fixed={true}>
           <IonRow>
             {pokeData && console.log(pokeData)}
-            {pokeData && pokeData.results.map((poke, index) =>(
+            {pokeData && pokeData.map((poke, index) =>(
               <IonCol key={index}>
                 <IonCard>
-                <img alt={`imagen de ${poke.name}`}  src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${index + 1}.png`} />
+                <img alt={`imagen de ${poke.name}`}  src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${getPokemonId(poke.url)}.png`} />
                   <IonCardHeader>
                     <IonCardTitle>{nameCapitalize(poke.name)}</IonCardTitle>
                   </IonCardHeader>
