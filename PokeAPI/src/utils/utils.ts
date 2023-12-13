@@ -28,3 +28,16 @@ export function getPokemonId(url: string) {
 
   return cleanId;
 }
+
+export function firstLoad<T>(
+  previousArray,
+  loadedCards,
+) {
+  const cardIncrease = 30;
+  let alreadyLoaded = loadedCards;
+  let nextToLoad = alreadyLoaded + cardIncrease;
+  const newObjectsArray = [];
+  const objectsToAdd = previousArray.slice(alreadyLoaded, nextToLoad);
+  newObjectsArray.push(...objectsToAdd);
+  return newObjectsArray;
+}

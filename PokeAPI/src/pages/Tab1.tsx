@@ -22,7 +22,7 @@ import {
   randomizeArray,
   nameCapitalize,
   getPokemonId,
-  addObjectsToPreviousArray,
+  firstLoad,
 } from "../utils/utils";
 
 const Tab1: React.FC = () => {
@@ -45,7 +45,7 @@ const Tab1: React.FC = () => {
 
   useEffect(() => {
     if (pokeData) {
-      setLoadedCards(addObjectsToPreviousArray(pokeData, currentLoaded));
+      setLoadedCards(firstLoad(pokeData, currentLoaded));
       setCurrentLoaded(30);
     }
   }, [pokeData]);
