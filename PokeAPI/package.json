@@ -8,6 +8,7 @@
   },
   "author": "Gonzalo Jaime",
   "license": "MIT",
+  "dependencies": {},
   "devDependencies": {},
   "keywords": []
 }
