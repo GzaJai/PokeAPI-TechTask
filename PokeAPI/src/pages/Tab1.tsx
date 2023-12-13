@@ -15,6 +15,9 @@ import {
   IonCardTitle,
   IonInfiniteScroll,
   IonInfiniteScrollContent,
+  IonRefresher,
+  IonRefresherContent,
+  RefresherEventDetail,
 } from "@ionic/react";
 import "./Tab1.css";
 import {
@@ -28,9 +31,9 @@ import {
 const Tab1: React.FC = () => {
   const [ApiResponse, setApiResponse] = useState();
   const [pokeData, setPokeData] = useState();
-  const [loadedCards, setLoadedCards] = useState(0);
+  const [loadedCards, setLoadedCards] = useState();
   const [currentLoaded, setCurrentLoaded] = useState(0);
-  const [finalMessage, setFinalMessage] = useState("");
+  const [finalMessage, setFinalMessage] = useState();
 
   useEffect(() => {
     getApiData(setApiResponse);
@@ -65,6 +68,13 @@ const Tab1: React.FC = () => {
     }
   };
 
+  function handleRefresh(event: CustomEvent<RefresherEventDetail>) {
+    setTimeout(() => {
+      window.location.reload();
+      event.detail.complete();
+    }, 2000);
+  };
+
   return (
     <IonPage>
       <IonHeader>
@@ -73,6 +83,9 @@ const Tab1: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
+        <IonRefresher slot="fixed" onIonRefresh={handleRefresh}>
+            <IonRefresherContent></IonRefresherContent>
+          </IonRefresher>
         <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">Tab 1</IonTitle>
