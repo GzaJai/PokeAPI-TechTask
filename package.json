@@ -1,0 +1,23 @@
+{
+  "name": "pokeapi-techtask",
+  "version": "1.0.0",
+  "description": "pokeapi for a tech task",
+  "main": "index.js",
+  "scripts": {
+    "test": "none"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GzaJai/PokeAPI-TechTask.git"
+  },
+  "keywords": [
+    "pokedex",
+    "pokeapi"
+  ],
+  "author": "Gonzalo Jaime",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GzaJai/PokeAPI-TechTask/issues"
+  },
+  "homepage": "https://github.com/GzaJai/PokeAPI-TechTask#readme"
+}
