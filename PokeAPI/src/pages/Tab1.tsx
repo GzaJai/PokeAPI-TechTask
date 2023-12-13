@@ -95,9 +95,10 @@ const Tab1: React.FC = () => {
           <IonRow>
             {loadedCards &&
               loadedCards.map((poke, index) => (
-                <IonCol key={index}>
+                <IonCol key={index} size="4">
                   <IonCard>
                     <img
+                      className="pokemon-img"
                       alt={`imagen de ${poke.name}`}
                       src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${getPokemonId(
                         poke.url
