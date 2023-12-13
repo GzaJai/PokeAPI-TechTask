@@ -28,7 +28,7 @@ ion-title {
 
 ion-card {
   background: #8bd3dd;
-  filter: drop-shadow(#000000a8 0px 4px .3rem);
+  filter: drop-shadow(#000000a8 0px 4px .rem);
 }
 
 .final-message{

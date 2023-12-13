@@ -18,6 +18,7 @@ import {
   IonRefresher,
   IonRefresherContent,
   RefresherEventDetail,
+  isPlatform,
 } from "@ionic/react";
 import "./Tab1.css";
 import {
@@ -27,6 +28,7 @@ import {
   getPokemonId,
   firstLoad,
 } from "../utils/utils";
+import PokemonCardModal from "../components/PokemonCardModal";
 
 const Tab1: React.FC = () => {
   const [ApiResponse, setApiResponse] = useState();
@@ -34,6 +36,8 @@ const Tab1: React.FC = () => {
   const [loadedCards, setLoadedCards] = useState();
   const [currentLoaded, setCurrentLoaded] = useState(0);
   const [finalMessage, setFinalMessage] = useState();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalCardPokemonId, setModalCardPokemonId] = useState(null);
 
   useEffect(() => {
     getApiData(setApiResponse);
@@ -75,6 +79,18 @@ const Tab1: React.FC = () => {
     }, 2000);
   };
 
+  const toggleModalOpen = () => {
+    setIsModalOpen(!isModalOpen)
+    if (isModalOpen){
+      setModalCardPokemonId(null)
+    }
+  }
+
+  const handleSelectPokemonCard = (id) => {
+    setIsModalOpen(true)
+    setModalCardPokemonId(id)
+  }
+
   return (
     <IonPage>
       <IonHeader>
@@ -83,20 +99,21 @@ const Tab1: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
+      <IonHeader collapse="condense">
+          <IonToolbar className={isPlatform('ios') && 'ios-title'}>
+            <IonTitle size="large">Pocketdex</IonTitle>
+          </IonToolbar>
+        </IonHeader>
         <IonRefresher slot="fixed" onIonRefresh={handleRefresh}>
             <IonRefresherContent></IonRefresherContent>
           </IonRefresher>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Tab 1</IonTitle>
-          </IonToolbar>
-        </IonHeader>
+        <PokemonCardModal isOpen={isModalOpen} toggleOpen={toggleModalOpen} />
         <IonGrid fixed={true}>
           <IonRow>
             {loadedCards &&
               loadedCards.map((poke, index) => (
-                <IonCol key={index} size="4">
-                  <IonCard>
+                <IonCol key={index} size-xs="6" size-sm="6" size-md="6" size="4" size-lg="3" size-xl="2">
+                  <IonCard id="open-modal" onClick={()=>handleSelectPokemonCard(getPokemonId(poke.url))}>
                     <img
                       className="pokemon-img"
                       alt={`imagen de ${poke.name}`}
@@ -108,6 +125,7 @@ const Tab1: React.FC = () => {
                       <IonCardTitle>{nameCapitalize(poke.name)}</IonCardTitle>
                     </IonCardHeader>
                   </IonCard>
+                  <PokemonCardModal isOpen={isModalOpen} toggleOpen={toggleModalOpen} pokemonId={modalCardPokemonId} />
                 </IonCol>
               ))}
           </IonRow>
